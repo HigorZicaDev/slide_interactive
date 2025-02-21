@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de bord en temps réel</title>
+    <title>Dashboard em Tempo Real</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
@@ -13,21 +13,21 @@
 </head>
 <body>
 
-    <h2>Tableau de bord en temps réel : </h2>
+    <h2>Dashboard em Tempo Real</h2>
     <table>
         <thead>
             <tr>
-                <th>Nom</th>
-                <th>Courriel</th>
-                <th>Langages</th>
-                <th>Expérience</th>
-                <th>Objectif</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Linguagens</th>
+                <th>Experiência</th>
+                <th>Objetivo</th>
             </tr>
         </thead>
         <tbody id="dashboard"></tbody>
     </table>
 
-    <h2>Graphique des langues utilisées</h2>
+    <h2>Gráfico de Linguagens Utilizadas</h2>
     <canvas id="chart"></canvas>
 
     <script>
@@ -67,7 +67,7 @@
                 data: {
                     labels: Object.keys(data),
                     datasets: [{
-                        label: "Nombre d'utilisateurs",
+                        label: "Número de usuários",
                         data: Object.values(data),
                         backgroundColor: ["red", "blue", "green", "yellow", "purple", "orange"]
                     }]

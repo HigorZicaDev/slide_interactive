@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Remplir le formulaire</title>
+    <title>Preencher Formulário</title>
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
     </style>
 </head>
 <body>
 
-    <h2>Remplir le formulaire : </h2>
+    <h2>Preencha o Formulário</h2>
     <form id="form">
-        <input type="text" id="name" placeholder="Nom" required>
-        <input type="email" id="email" placeholder="Courriel" required>
+        <input type="text" id="name" placeholder="Nome" required>
+        <input type="email" id="email" placeholder="E-mail" required>
 
-        <h3>Quel langage de programmation utilisez-vous ?</h3>
+        <h3>Qual linguagem de programação você utiliza?</h3>
         <label><input type="checkbox" name="language" value="Python"> Python</label>
         <label><input type="checkbox" name="language" value="Nodejs"> Node.js</label>
         <label><input type="checkbox" name="language" value="C#"> C#</label>
@@ -23,12 +23,12 @@
         <label><input type="checkbox" name="language" value="PHP"> PHP</label>
         <label><input type="checkbox" name="language" value="Golang"> Golang</label>
 
-        <h3>Quel est votre niveau d'expérience ?</h3>
-        <label><input type="radio" name="experience" value="Débutant"> Débutant</label>
-        <label><input type="radio" name="experience" value="Intermédiaire"> Intermédiaire</label>
-        <label><input type="radio" name="experience" value="Avancé"> Avancé</label>
+        <h3>Qual é seu nível de experiência?</h3>
+        <label><input type="radio" name="experience" value="Iniciante"> Iniciante</label>
+        <label><input type="radio" name="experience" value="Intermediário"> Intermediário</label>
+        <label><input type="radio" name="experience" value="Avançado"> Avançado</label>
 
-        <h3>Objectif de la participation ?</h3>
+        <h3>Objetivo ao participar?</h3>
         <textarea id="goal" maxlength="200"></textarea>
 
         <button type="submit">Enviar</button>
@@ -50,7 +50,7 @@
             socket.send(JSON.stringify(data));
 
             document.getElementById("form").reset();
-            alert("Réponse envoyée avec succès !");
+            alert("Resposta enviada com sucesso!");
         });
     </script>
 
