@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preencher Formulário</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <h2>Preencha o Formulário</h2>
+    <form id="form">
+        <input type="text" id="name" placeholder="Nome" required>
+        <input type="email" id="email" placeholder="E-mail" required>
+
+        <h3>Qual linguagem de programação você utiliza?</h3>
+        <label><input type="checkbox" name="language" value="Python"> Python</label>
+        <label><input type="checkbox" name="language" value="Nodejs"> Node.js</label>
+        <label><input type="checkbox" name="language" value="C#"> C#</label>
+        <label><input type="checkbox" name="language" value="Java"> Java</label>
+        <label><input type="checkbox" name="language" value="PHP"> PHP</label>
+        <label><input type="checkbox" name="language" value="Golang"> Golang</label>
+
+        <h3>Qual é seu nível de experiência?</h3>
+        <label><input type="radio" name="experience" value="Iniciante"> Iniciante</label>
+        <label><input type="radio" name="experience" value="Intermediário"> Intermediário</label>
+        <label><input type="radio" name="experience" value="Avançado"> Avançado</label>
+
+        <h3>Objetivo ao participar?</h3>
+        <textarea id="goal" maxlength="200"></textarea>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8000/ws");
+
+        document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+
+            const languages = [...document.querySelectorAll("input[name='language']:checked")].map(el => el.value);
+            const experience = document.querySelector("input[name='experience']:checked")?.value || "";
+            const goal = document.getElementById("goal").value;
+
+            const data = { name, email, languages, experience, goal };
+            socket.send(JSON.stringify(data));
+
+            document.getElementById("form").reset();
+            alert("Resposta enviada com sucesso!");
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard em Tempo Real</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        table { width: 80%; margin: auto; border-collapse: collapse; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <h2>Dashboard em Tempo Real</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Linguagens</th>
+                <th>Experiência</th>
+                <th>Objetivo</th>
+            </tr>
+        </thead>
+        <tbody id="dashboard"></tbody>
+    </table>
+
+    <h2>Gráfico de Linguagens Utilizadas</h2>
+    <canvas id="chart"></canvas>
+
+    <script>
+        const socket = new WebSocket("ws://localhost:8000/ws");
+        let responses = [];
+
+        function updateDashboard() {
+            const dashboard = document.getElementById("dashboard");
+            dashboard.innerHTML = "";
+
+            const languageCount = { Python: 0, Nodejs: 0, "C#": 0, Java: 0, PHP: 0, Golang: 0 };
+
+            responses.forEach(user => {
+                const row = `<tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.languages.join(", ")}</td>
+                    <td>${user.experience}</td>
+                    <td>${user.goal}</td>
+                </tr>`;
+                dashboard.innerHTML += row;
+
+                user.languages.forEach(lang => {
+                    languageCount[lang]++;
+                });
+            });
+
+            updateChart(languageCount);
+        }
+
+        function updateChart(data) {
+            const ctx = document.getElementById("chart").getContext("2d");
+            if (window.myChart) window.myChart.destroy();
+
+            window.myChart = new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: "Número de usuários",
+                        data: Object.values(data),
+                        backgroundColor: ["red", "blue", "green", "yellow", "purple", "orange"]
+                    }]
+                }
+            });
+        }
+
+        socket.onmessage = function(event) {
+            responses = JSON.parse(event.data);
+            updateDashboard();
+        };
+    </script>
+
+</body>
+</html>
